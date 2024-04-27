@@ -10,9 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_26_102712) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_27_123321) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "basket_items", force: :cascade do |t|
+    t.bigint "basket_id", null: false
+    t.bigint "product_id", null: false
+    t.integer "quantity", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["basket_id"], name: "index_basket_items_on_basket_id"
+    t.index ["product_id"], name: "index_basket_items_on_product_id"
+  end
+
+  create_table "baskets", force: :cascade do |t|
+    t.decimal "total", precision: 10, scale: 2, default: "0.0", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "products", force: :cascade do |t|
     t.string "code"
@@ -22,4 +38,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_26_102712) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "basket_items", "baskets"
+  add_foreign_key "basket_items", "products"
 end
