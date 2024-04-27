@@ -4,7 +4,7 @@ class BasketsController < ApplicationController
   # POST /baskets
   # Create a new basket instance.
   def create
-    @basket = Basket.new
+    @basket = find_or_create_basket
     if @basket.save
       render json: @basket, status: :created, location: @basket
     else
@@ -26,6 +26,10 @@ class BasketsController < ApplicationController
   end
 
   private
+
+  def find_or_create_basket
+    Basket.find_or_create_by(session_id: session.id)
+  end
 
   def set_basket
     @basket = Basket.find(params[:id])
