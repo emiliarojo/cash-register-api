@@ -33,7 +33,7 @@ RSpec.describe "BasketItems", type: :request do
       basket_item = basket.basket_items.create!(product: product, quantity: 1)
 
       expect {
-        delete basket_basket_item_path(basket_item)
+        delete basket_basket_item_path(basket, basket_item)
       }.to change(basket.basket_items, :count).by(-1)
       expect(response).to have_http_status(:no_content)
     end
