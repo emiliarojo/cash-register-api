@@ -20,7 +20,7 @@ RSpec.describe "Baskets", type: :request do
   describe "DELETE /baskets/:id" do
     it "deletes the basket" do
       basket = Basket.create!
-      expect { delete basket_path(basket) .to change(Basket, :count).by(-1) }
+      expect { delete basket_path(basket)}.to change(Basket, :count).by(-1)
       expect(response).to have_http_status(:no_content)
     end
   end

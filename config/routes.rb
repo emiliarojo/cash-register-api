@@ -8,4 +8,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   resources :products
+
+  resources :baskets do
+    resources :basket_items, only: [:create, :update, :destroy]
+  end
 end
