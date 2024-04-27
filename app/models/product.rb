@@ -2,6 +2,7 @@ class Product < ApplicationRecord
   validates :code, presence: true
   validates :name, presence: true
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :bulk_threshold, numericality: { greater_than_or_equal_to: 0, allow_nil: true}
 
   validate :validate_discount_configuration
 

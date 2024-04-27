@@ -7,6 +7,7 @@ class BasketItemsController < ApplicationController
   def create
     @basket_item = @basket.basket_items.new(basket_item_params)
     if @basket_item.save
+      DiscountService.new(@basket).apply_discounts
       render json: @basket_item, status: :created
     else
       render json: @basket_item.errors, status: :unprocessable_entity
@@ -18,6 +19,7 @@ class BasketItemsController < ApplicationController
   def update
     if @basket_item.update(basket_item_params)
       render json: @basket_item
+      DiscountService.new(@basket).apply_discounts
     else
       render json: @basket_item.errors, status: :unprocessable_entity
     end
@@ -27,6 +29,7 @@ class BasketItemsController < ApplicationController
   # Deletes item in basket.
   def destroy
     @basket_item.destroy
+    DiscountService.new(@basket).apply_discounts
     head :no_content
   end
 
