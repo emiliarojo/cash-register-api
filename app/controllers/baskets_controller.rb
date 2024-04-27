@@ -1,7 +1,8 @@
 class BasketsController < ApplicationController
   before_action :set_basket, only: [:show, :destroy]
 
-  # Create a new basket instance and return it as JSON
+  # POST /baskets
+  # Create a new basket instance.
   def create
     @basket = Basket.new
     if @basket.save
@@ -11,12 +12,14 @@ class BasketsController < ApplicationController
     end
   end
 
-  # Return specified basket as JSON
+  # GET /baskets/:id
+  # Shows details of specific basket.
   def show
     render json: @basket
   end
 
-  # Delete the specified basket and return a no content respons
+  # DELETE /baskets/:id
+  # Deletes a specific basket
   def destroy
     @basket.destroy
     head :no_content
@@ -24,9 +27,7 @@ class BasketsController < ApplicationController
 
   private
 
-  # Set the basket instance variable to the basket with the specified ID for the show and destroy actions
   def set_basket
     @basket = Basket.find(params[:id])
   end
-
 end
