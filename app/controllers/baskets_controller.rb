@@ -1,35 +1,36 @@
 class BasketsController < ApplicationController
-  before_action :set_basket, only: [:show, :destroy]
+  before_action :set_basket, only: [:show, :destroy, :checkout]
 
   # POST /baskets
-  # Create a new basket instance.
+  # Create or find a basket and link it to a session
   def create
-    @basket = find_or_create_basket
+    # Initialize or retrieve the session ID
+    session[:session_id] ||= SecureRandom.uuid
+    @basket = Basket.find_or_create_by(session_id: session[:session_id])
     if @basket.save
-      render json: @basket, status: :created, location: @basket
+      render json: { basket_id: @basket.id, session_id: session[:session_id] }, status: :created
     else
       render json: @basket.errors, status: :unprocessable_entity
     end
   end
 
   # GET /baskets/:id
-  # Shows details of specific basket.
+  # Shows details of a specific basket.
   def show
     render json: @basket
   end
 
   # DELETE /baskets/:id
-  # Deletes a specific basket
+  # Deletes a specific basket.
   def destroy
     @basket.destroy
     head :no_content
   end
 
   # POST /baskets/:id/checkout
-  # Checkout the basket
+  # Checkout the basket.
   def checkout
-    basket = Basket.find(params[:id])
-    checkout_service = CheckoutService.new(basket)
+    checkout_service = CheckoutService.new(@basket)
     result = checkout_service.checkout
     render json: {
       total: result[:total],
@@ -39,10 +40,6 @@ class BasketsController < ApplicationController
   end
 
   private
-
-  def find_or_create_basket
-    Basket.find_or_create_by(session_id: session.id)
-  end
 
   def set_basket
     @basket = Basket.find(params[:id])
