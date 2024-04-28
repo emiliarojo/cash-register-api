@@ -1,6 +1,13 @@
 class BasketsController < ApplicationController
   before_action :set_basket, only: [:show, :destroy, :checkout]
 
+  #GET /baskets
+  # List all baskets
+  def index
+    @baskets = Basket.all
+    render json: @baskets
+  end
+
   # POST /baskets
   # Create or find a basket and link it to a session
   def create
