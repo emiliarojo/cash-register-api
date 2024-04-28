@@ -1,11 +1,12 @@
-CashRegisterApi::Application.config.session_store :redis_store,
+Rails.application.config.session_store :redis_store, {
   servers: [
     {
-      url: ENV['REDIS_URL'],
-      namespace: 'session'
-    }
+      host: ENV["REDIS_HOST"] || "localhost",
+      port: ENV["REDIS_PORT"] || 6379,
+      db: 0,
+      password: ENV["REDIS_PASSWORD"],
+      namespace: "session"
+    },
   ],
-  expire_after: 90.minutes,
-  key: "_#{Rails.application.class.module_parent_name.downcase}_session",
-  threadsafe: true,
-  secure: true
+  expire_after: 90.minutes
+}
