@@ -31,7 +31,11 @@ class BasketsController < ApplicationController
     basket = Basket.find(params[:id])
     checkout_service = CheckoutService.new(basket)
     result = checkout_service.checkout
-    render json: result, status: :ok
+    render json: {
+      total: result[:total],
+      items: result[:items],
+      discounts: result[:discounts]
+    }
   end
 
   private

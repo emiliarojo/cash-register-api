@@ -5,10 +5,12 @@ class DiscountService
 
   # This method applies the appropriate discounts to the basket items
   def apply_discounts
+    messages = []
     @basket.basket_items.each do |item|
-      apply_bogo_discount(item) if item.product.bogo_eligible?
-      apply_bulk_discount(item) if item.product.bulk_eligible?
+      messages << apply_bogo_discount(item) if item.product.bogo_eligible?
+      messages << apply_bulk_discount(item) if item.product.bulk_eligible?
     end
+    messages.compact
   end
 
   private
@@ -34,6 +36,7 @@ class DiscountService
                          item.product.price # If neither is present, use the original price
                        end
     item.update(discount_price: discounted_price.round(2), paid_quantity: item.quantity)
-    "Bulk discount on #{item.product.name} applied: #{discounted_price} each." # Bulk discount message
+    formatted_price = format('%.2f', discounted_price)
+    "Bulk discount on #{item.product.name} applied: #{formatted_price} each." # Bulk discount message
   end
 end
