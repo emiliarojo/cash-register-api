@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   resources :products
 
   resources :baskets do
+    member do
+      get :checkout
+    end
     resources :basket_items, only: [:create, :update, :destroy]
   end
 end

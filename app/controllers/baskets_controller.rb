@@ -25,6 +25,15 @@ class BasketsController < ApplicationController
     head :no_content
   end
 
+  # POST /baskets/:id/checkout
+  # Checkout the basket
+  def checkout
+    basket = Basket.find(params[:id])
+    checkout_service = CheckoutService.new(basket)
+    result = checkout_service.checkout
+    render json: result, status: :ok
+  end
+
   private
 
   def find_or_create_basket

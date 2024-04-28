@@ -11,7 +11,7 @@ RSpec.describe DiscountService do
   it 'applies BOGO discount correctly for Green Tea' do
     item = @basket.basket_items.create!(product: @green_tea, quantity: 2)
     DiscountService.new(@basket).apply_discounts
-    expect(item.reload.discount_price).to be_within(0.01).of(1.56)
+    expect(item.reload.discount_price).to be_within(0.01).of(3.11)
   end
 
   it 'applies bulk discount correctly for Strawberries' do

@@ -16,9 +16,11 @@ class DiscountService
   # This method applies the Buy One Get One discount to the item
   def apply_bogo_discount(item)
     return unless item.quantity > 1
-    effective_quantity = item.quantity / 2 + item.quantity % 2
-    effective_unit_price = (item.product.price * effective_quantity) / item.quantity
-    item.update(discount_price: effective_unit_price.round(2))
+    # Calculate how many items are paid
+    paid_quantity = (item.quantity / 2) + (item.quantity % 2)
+    # Add discount price and paid quantity to the item
+    item.update(discount_price: item.product.price, paid_quantity: paid_quantity)
+    "BOGO discount applied to #{item.product.name}: Buy one get one free." # BOGO discount message
   end
 
   # This method applies the bulk discount to the item
@@ -31,6 +33,7 @@ class DiscountService
                        else
                          item.product.price # If neither is present, use the original price
                        end
-    item.update(discount_price: discounted_price.round(2))
+    item.update(discount_price: discounted_price.round(2), paid_quantity: item.quantity)
+    "Bulk discount on #{item.product.name} applied: #{discounted_price} each." # Bulk discount message
   end
 end
