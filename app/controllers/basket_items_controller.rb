@@ -6,8 +6,8 @@ class BasketItemsController < ApplicationController
   # Adds new item to basket.
   def create
     @basket_item = @basket.basket_items.new(basket_item_params)
-    if @basket_item.save
-      DiscountService.new(@basket).apply_discounts
+    if valid_product?(@basket_item.product_id) && @basket_item.save
+      update_discounts
       render json: @basket_item, status: :created
     else
       render json: @basket_item.errors, status: :unprocessable_entity
@@ -17,9 +17,9 @@ class BasketItemsController < ApplicationController
   # PUT /baskets/:basket_id/basket_items/:id
   # Updates item in basket.
   def update
-    if @basket_item.update(basket_item_params)
+    if valid_product?(@basket_item.product_id) && @basket_item.update(basket_item_params)
+      update_discounts
       render json: @basket_item
-      DiscountService.new(@basket).apply_discounts
     else
       render json: @basket_item.errors, status: :unprocessable_entity
     end
@@ -29,7 +29,7 @@ class BasketItemsController < ApplicationController
   # Deletes item in basket.
   def destroy
     @basket_item.destroy
-    DiscountService.new(@basket).apply_discounts
+    update_discounts
     head :no_content
   end
 
@@ -45,5 +45,15 @@ class BasketItemsController < ApplicationController
 
   def basket_item_params
     params.require(:basket_item).permit(:product_id, :quantity)
+  end
+
+  # Validates that the product is one of the predefined allowable products
+  def valid_product?(product_id)
+    Product.exists?(id: product_id, code: ['GR1', 'SR1', 'CF1'])
+  end
+
+  # Update discounts using the DiscountService
+  def update_discounts
+    DiscountService.new(@basket).apply_discounts
   end
 end
