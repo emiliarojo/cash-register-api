@@ -1,4 +1,4 @@
-Rails.application.config.session_store :redis_store, {
+Rails.application.config.session_store :redis_store,
   servers: [
     {
       host: ENV["REDIS_HOST"] || "localhost",
@@ -9,4 +9,3 @@ Rails.application.config.session_store :redis_store, {
     },
   ],
   expire_after: 90.minutes
-}
