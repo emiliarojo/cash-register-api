@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :products
 
   resources :baskets do
-    resources :basket_items, only: [:create, :update, :destroy]
+    resources :basket_items
     post 'checkout', on: :member
   end
 end

@@ -2,6 +2,12 @@ class BasketItemsController < ApplicationController
   before_action :set_basket
   before_action :set_basket_item, only: [:update, :destroy]
 
+  # GET /baskets/:basket_id/basket_items
+  # Lists all items in basket.
+  def index
+    render json: @basket.basket_items
+  end
+
   # POST /baskets/:basket_id/basket_items
   # Adds new item to basket.
   def create
