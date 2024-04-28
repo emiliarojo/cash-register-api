@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   # root "posts#index"
   resources :products
 
-  resources :baskets, only: [:create, :show, :destroy] do
+  resources :baskets do
     resources :basket_items, only: [:create, :update, :destroy]
     post 'checkout', on: :member
   end
