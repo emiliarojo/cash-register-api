@@ -9,10 +9,8 @@ Rails.application.routes.draw do
   # root "posts#index"
   resources :products
 
-  resources :baskets do
-    member do
-      get :checkout
-    end
+  resources :baskets, only: [:create, :show, :destroy] do
     resources :basket_items, only: [:create, :update, :destroy]
+    post 'checkout', on: :member
   end
 end
