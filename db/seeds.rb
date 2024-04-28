@@ -8,8 +8,8 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-Product.find_or_create_by(code: 'GR1', name: 'Green Tea', price: 3.11)
-Product.find_or_create_by(code: 'SR1', name: 'Strawberries', price: 5.00)
-Product.find_or_create_by(code: 'CF1', name: 'Coffee', price: 11.23)
+Product.find_or_create_by!(code: 'GR1', name: "Green Tea", price: 3.11, bogo_eligible: true)
+Product.find_or_create_by!(code: 'SR1', name: "Strawberries", price: 5.00, bulk_eligible: true, bulk_threshold: 3, new_price: 4.50)
+Product.find_or_create_by!(code: 'CF1', name: "Coffee", price: 11.23, bulk_eligible: true, bulk_threshold: 3, discount_factor: 2/3.0)
 
 puts "Seeded products"
