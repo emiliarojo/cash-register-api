@@ -11,8 +11,10 @@ class BasketsController < ApplicationController
   # POST /baskets
   # Create or find a basket and link it to a session
   def create
-    # Initialize or retrieve the session ID
+    logger.info "Existing session ID: #{session[:session_id]}"  # Log the existing session ID if any
     session[:session_id] ||= SecureRandom.uuid
+    logger.info "Assigned session ID: #{session[:session_id]}"  # Log the new or existing session ID
+
     @basket = Basket.find_or_create_by(session_id: session[:session_id])
     if @basket.save
       render json: { basket_id: @basket.id, session_id: session[:session_id] }, status: :created
@@ -20,6 +22,7 @@ class BasketsController < ApplicationController
       render json: @basket.errors, status: :unprocessable_entity
     end
   end
+
 
   # GET /baskets/:id
   # Shows details of a specific basket.
