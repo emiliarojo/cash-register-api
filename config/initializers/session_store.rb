@@ -13,7 +13,8 @@
 #                                        same_site: :lax,
 #                                        httponly: true
 
-Rails.application.config.session_store :redis_store,
-    url: ENV['REDIS_URL'] || 'localhost:6379',
-    serializer: :json,
-    expire_after: 90.minutes
+# Rails.application.config.session_store :redis_store,
+#     url: ENV['REDIS_URL'] || 'localhost:6379',
+#     expire_after: 90.minutes
+
+MyApplication::Application.config.session_store :redis_store
