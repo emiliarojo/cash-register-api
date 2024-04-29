@@ -17,7 +17,5 @@ module CashRegisterApi
     config.middleware.use ActionDispatch::Session::CookieStore
 
     config.autoload_lib(ignore: %w(assets tasks))
-
-    config.session_store :cache_store, key: ‘_your_app_session’, expire_after: 1.day
   end
 end
