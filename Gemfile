@@ -49,5 +49,4 @@ group :development do
   gem "error_highlight", ">= 0.4.0", platforms: [:ruby]
 end
 
-gem "redis", "~> 5.0" # Redis client for Ruby
-gem "redis-actionpack", "~> 5.3" # Redis session store for ActionPack
+gem "redis"

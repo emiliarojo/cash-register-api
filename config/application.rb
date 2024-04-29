@@ -18,6 +18,6 @@ module CashRegisterApi
 
     config.autoload_lib(ignore: %w(assets tasks))
 
-    config.cache_store = :redis_store, ENV['REDIS_URL'] || 'redis://localhost:6379/0/cache', { expires_in: 90.minutes }
+    config.session_store :cache_store, key: ‘_your_app_session’, expire_after: 1.day
   end
 end
