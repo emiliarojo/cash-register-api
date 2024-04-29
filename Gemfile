@@ -50,3 +50,4 @@ group :development do
 end
 
 gem "redis"
+gem "redis-rails"
