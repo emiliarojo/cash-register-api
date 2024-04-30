@@ -27,8 +27,7 @@ class DiscountService
 
   # This method applies the bulk discount to the item
   def apply_bulk_discount(item)
-    item.update(paid_quantity: item.quantity) # By default, all items are paid
-    discounted_price = item.product.price # By default, the price is the same
+    item.update(discount_price: item.product.price, paid_quantity: item.quantity) # By default, no discount
 
     return unless item.quantity >= item.product.bulk_threshold
     discounted_price = if item.product.new_price.present? # If new price is present, use it
