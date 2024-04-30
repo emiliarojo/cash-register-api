@@ -12,7 +12,6 @@ This backend API is designed to simulate a cash register system, capable of hand
 ## Technologies Used
 - **Rails**: Framework used to build the API.
 - **PostgreSQL**: Database system for persistent storage.
-- **Redis**: Used for session management and storing temporary basket data.
 - **RSpec**: Used for testing to ensure reliability and correctness of the API functionalities.
 
 ## Getting Started
@@ -21,7 +20,6 @@ This backend API is designed to simulate a cash register system, capable of hand
 - Ruby (version specified in .ruby-version)
 - Rails
 - PostgreSQL
-- Redis server
 
 ### Installation
 1. Clone the repository and navigate into directory:
@@ -44,13 +42,7 @@ This backend API is designed to simulate a cash register system, capable of hand
     rails db:create db:migrate
   ```
 
-4. Start the Redis server (ensure it's running on default port 6379);
-
-  ```
-    redis-serve
-  ```
-
-5. Start the Rails server:
+4. Start the Rails server:
 
   ```
     rails s

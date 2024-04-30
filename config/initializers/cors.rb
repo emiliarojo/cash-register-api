@@ -10,7 +10,8 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
     origins [
       "https://cash-register-frontend.vercel.app",
       "https://cash-register-frontend-git-main-emiliarojos-projects.vercel.app",
-      "https://cash-register-frontend-o6megpyx3-emiliarojos-projects.vercel.app"
+      "https://cash-register-frontend-o6megpyx3-emiliarojos-projects.vercel.app",
+      "http://localhost:3000/"
     ]
     resource "*",
       headers: :any,
