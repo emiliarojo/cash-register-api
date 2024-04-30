@@ -43,7 +43,7 @@ class BasketsController < ApplicationController
     checkout_service = CheckoutService.new(@basket)
     result = checkout_service.checkout
     render json: {
-      total: result[:total],
+      total: format('%.2f', result[:total]),
       items: result[:items],
       discounts: result[:discounts]
     }

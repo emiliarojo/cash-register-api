@@ -37,6 +37,6 @@ class DiscountService
                       end
     item.update(discount_price: discounted_price.round(2))
     formatted_price = format('%.2f', discounted_price)
-    "Bulk discount on #{item.product.name} applied: #{formatted_price} each." # Bulk discount message
+    "Bulk discount on #{item.product.name} applied: €#{formatted_price} each." # Bulk discount message
   end
 end
