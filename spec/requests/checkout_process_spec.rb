@@ -27,7 +27,7 @@ RSpec.describe 'Checkout Process', type: :request do
     expect(response).to have_http_status(:created)
 
     # Perform checkout
-    get "/baskets/#{@basket.id}/checkout"
+    post "/baskets/#{@basket.id}/checkout"
     expect(response).to have_http_status(:ok)
 
     # Parse the JSON response
@@ -35,7 +35,7 @@ RSpec.describe 'Checkout Process', type: :request do
     expect(json_response['total']).to eq((3.11 + (4.50 * 3) + (11.23 * 2)).to_s)  # String comparison due to JSON parsing
     expect(json_response['discounts']).to include(
       "BOGO discount applied to Green Tea: Buy one get one free.",
-      "Bulk discount on Strawberries applied: 4.50 each."
+      "Bulk discount on Strawberries applied: €4.50 each."
     )
   end
 end
