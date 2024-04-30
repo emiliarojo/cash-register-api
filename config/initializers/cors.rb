@@ -7,8 +7,11 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins "https://cash-register-frontend.vercel.app/"
-
+    origins [
+      "https://cash-register-frontend.vercel.app",
+      "https://cash-register-frontend-git-main-emiliarojos-projects.vercel.app",
+      "https://cash-register-frontend-o6megpyx3-emiliarojos-projects.vercel.app"
+    ]
     resource "*",
       headers: :any,
       methods: [:get, :post, :put, :patch, :delete, :options, :head],
