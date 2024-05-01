@@ -16,7 +16,7 @@ RSpec.describe CheckoutService do
       # Stubbing the discount service to prevent actual discount logic in this test
       allow_any_instance_of(DiscountService).to receive(:apply_discounts).and_return([
         "BOGO discount applied to Green Tea: Buy one get one free.",
-        "Bulk discount on Strawberries applied: 4.50 each.",
+        "Bulk discount on Strawberries applied: €4.50 each.",
       ])
     end
 
@@ -28,23 +28,23 @@ RSpec.describe CheckoutService do
       expect(result[:items].size).to eq(3)
       expect(result[:discounts]).to include(
         "BOGO discount applied to Green Tea: Buy one get one free.",
-        "Bulk discount on Strawberries applied: 4.50 each."
+        "Bulk discount on Strawberries applied: €4.50 each."
       )
       expect(result[:items]).to include(
         hash_including(
           product_name: 'Green Tea',
           quantity: 2,
-          discount_price: 3.11
+          discount_price: "3.11"
         ),
         hash_including(
           product_name: 'Strawberries',
           quantity: 3,
-          discount_price: 4.50
+          discount_price: "4.50"
         ),
         hash_including(
           product_name: 'Coffee',
           quantity: 2,
-          discount_price: 11.23
+          discount_price: "11.23"
         )
       )
     end
