@@ -7,8 +7,8 @@ class CheckoutService
 
   def checkout
     discount_messages = apply_discounts
-    receipt = itemized_receipt
-    { items: receipt, discounts: discount_messages, total: calculate_total }
+    items = itemized_receipt
+    { items: items, discounts: discount_messages, total: calculate_total }
   end
 
   private
@@ -26,9 +26,9 @@ class CheckoutService
       {
         product_name: item.product.name,
         quantity: item.quantity,
-        unit_price: item.product.price,
-        discount_price: item.discount_price,
-        total_price: item.discount_price * item.paid_quantity,
+        unit_price: format('%.2f', item.product.price),
+        discount_price: format('%.2f', item.discount_price),
+        total_price: format('%.2f', item.discount_price * item.paid_quantity)
       }
     end
   end
